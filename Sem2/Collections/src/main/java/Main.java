@@ -1,3 +1,4 @@
+import java.util.Map;
 import java.util.Scanner;
 
 public class Main {
@@ -66,7 +67,7 @@ public class Main {
         System.out.printf("StringBuilder is %f times faster.\n", (bufferResult + 0.0) / builderResult);
     }
 
-    private static long test(Appendable obj) throws java.io.IOException {
+    static long test(Appendable obj) throws java.io.IOException {
         long start = System.currentTimeMillis();
 
         for (int i = 0; i++ < 1e9; ) {
