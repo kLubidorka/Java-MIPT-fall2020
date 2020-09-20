@@ -4,6 +4,7 @@ import java.util.Map;
 public class HashMApSamples {
     public static void main(String[] args) {
         typicalUsage();
+        HashMap<StringBuffer, String> hm = new HashMap<>();
     }
 
     static void typicalUsage(){
@@ -18,6 +19,7 @@ public class HashMApSamples {
         for (Map.Entry<Integer, String> element : mapping.entrySet()){
             Integer key = element.getKey();
             String value = element.getValue();
+            System.out.println(key + " " + value);
         }
     }
 }
