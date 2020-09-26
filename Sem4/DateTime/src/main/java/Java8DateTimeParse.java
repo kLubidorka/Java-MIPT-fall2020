@@ -10,7 +10,9 @@ public class Java8DateTimeParse {
         System.out.println("Standard LocalDate format : " + date);
 
         // Use custom format
-        System.out.println(date.format(DateTimeFormatter.ofPattern("d::MMM::uuuu")));
+        System.out.println(date.format(DateTimeFormatter.ofPattern("dd::MMMM::uu")));
+
+
         System.out.println(date.format(DateTimeFormatter.BASIC_ISO_DATE));
 
         LocalDateTime dateTime = LocalDateTime.now();
@@ -22,7 +24,7 @@ public class Java8DateTimeParse {
         System.out.println(dateTime.format(DateTimeFormatter.ofPattern("d::MMM::uuuu HH::mm::ss")));
         System.out.println(dateTime.format(DateTimeFormatter.BASIC_ISO_DATE));
 
-        DateTimeFormatter sourceFormat = DateTimeFormatter.ofPattern("uuuu-MM-dd'T'HH:mm'+0:0000'");
+        DateTimeFormatter sourceFormat = DateTimeFormatter.ofPattern(":000uuuu-MM-dd'T'HH:mm'+00'");
         DateTimeFormatter targetFormat = DateTimeFormatter.ofPattern("MM-dd-uuuu hh:mm a", Locale.ENGLISH);
 
         String sourceTime = "2017-07-05T20:31+0:0000";
