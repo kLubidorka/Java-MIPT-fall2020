@@ -2,7 +2,7 @@ import java.util.regex.*;
 
 public class RegExExample {
     public static void main(String[] args) {
-        regEx();
+
     }
 
     public static void regEx(){
@@ -21,6 +21,13 @@ public class RegExExample {
         return Pattern.matches("[A-Z].*[.?!]", input);
     }
 
+    public static void regExAsSplitter(){
+        String test = "car;bike;train:plane";
+        String[] testSplitted = test.split("[;:]");
+        for (String el : testSplitted){
+            System.out.println(el);
+        }
+    }
 
 
 
