@@ -18,10 +18,15 @@ public class RegExExample {
      * @return true if sentence is correct, false otherwise
      */
     public static boolean validateInput(String input){
-        Pattern p = Pattern.compile("[A-Z].*[/.?!]");
-        Matcher m = p.matcher(input);
-        return m.matches();
+        return Pattern.matches("[A-Z].*[.?!]", input);
     }
+
+
+
+
+    /* /////////////////////////////// TASKS /////////////////////////////// */
+
+
 
     /**
      * Validates email address. Email should contain one at-symbol (@) and at least one symbol to the left and to the right
@@ -32,6 +37,18 @@ public class RegExExample {
     public static boolean validateEmail(String email){
         Pattern p = Pattern.compile("YOUR PATTERN HERE");
         Matcher m = p.matcher(email);
+        return m.matches();
+    }
+
+    /**
+     * Validates phone number. Phone number format should be '+COUNTRY_CODE (xxx) xxx-xx-xx'. COUNTRY_CODE is 1-3
+     * digit number.
+     * @param number String with email to validate
+     * @return true if email is correct, false otherwise
+     */
+    public static boolean validatePhoneNumber(String number){
+        Pattern p = Pattern.compile("YOUR PATTERN HERE");
+        Matcher m = p.matcher(number);
         return m.matches();
     }
 }
