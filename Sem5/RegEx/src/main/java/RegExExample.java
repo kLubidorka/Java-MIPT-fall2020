@@ -1,9 +1,7 @@
 import java.util.regex.*;
 
 public class RegExExample {
-    public static void main(String[] args) {
-
-    }
+    public static void main(String[] args) {}
 
     public static void regEx(){
         Pattern p = Pattern.compile("a*b");
@@ -27,6 +25,18 @@ public class RegExExample {
         for (String el : testSplitted){
             System.out.println(el);
         }
+    }
+
+    public static String extractIP(String text){
+        String regexpIP = "(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)";
+        Pattern pattern = Pattern.compile(regexpIP);
+        Matcher matcher = pattern.matcher(text);
+        matcher.find();
+        return matcher.group();
+    }
+
+    public static void extractIPDemo(){
+        System.out.println(extractIP("192.168.0.3"));
     }
 
 
