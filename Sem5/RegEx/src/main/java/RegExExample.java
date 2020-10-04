@@ -61,7 +61,7 @@ public class RegExExample {
     /* /////////////////////////////// TASKS /////////////////////////////// */
 
 
-    // You need to add regular expressions, so that methods satisfy their description
+    // You need to add regular expressions, so that methods satisfy their descriptions
     // Run tests from InputTest.java in test folder to check your solutions
 
 
