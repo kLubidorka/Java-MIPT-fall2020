@@ -12,7 +12,7 @@ public class InputTest {
         assertFalse(RegExExample.validateInput("hello."));
     }
 
-    //@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void EmailTest(){
         assertTrue(RegExExample.validateEmail("abc@gmail.com"));
         assertTrue(RegExExample.validateEmail("a_b_c@gmail.com"));
@@ -26,7 +26,7 @@ public class InputTest {
         assertFalse(RegExExample.validateEmail("a*bc@@gmail.com"));
     }
 
-    //@org.junit.jupiter.api.Test
+    @org.junit.jupiter.api.Test
     public void phoneNumTest(){
         assertTrue(RegExExample.validatePhoneNumber("+7 (923) 123-23-56"));
         assertTrue(RegExExample.validatePhoneNumber("+73 (923) 123-23-56"));
