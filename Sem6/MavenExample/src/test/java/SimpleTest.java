@@ -7,4 +7,3 @@ class SimpleTest {
         assertEquals(2, HelloWorld.add(1, 1));
     }
 }
-

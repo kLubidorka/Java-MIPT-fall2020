@@ -42,6 +42,15 @@ public class ComplicatedTest {
         assertEquals("Something went wrong", exception.getMessage());
     }
 
+    @Test
+    void sumtest(){
+        Throwable exception = assertThrows(IllegalArgumentException.class, () -> {
+            HelloWorld.add(-1, 2);
+        });
+
+        assertEquals("a must be >= 0", exception.getMessage());
+    }
+
     @RepeatedTest(5)
     void repeatedTest() {
         System.out.println("You will see this message five times");
