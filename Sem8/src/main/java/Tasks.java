@@ -1,9 +1,6 @@
 import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import static java.lang.Math.max;
 
 /**
  * This class contains tasks that should be solved using stream API only.
@@ -35,5 +32,13 @@ public class Tasks<T> {
     public List<T> task3(Stream<T> stream){
         // YOUR CODE HERE
         return null;
+    }
+
+    /**
+     * Return true if at least one element equals to "pattern" can be found in stream, else return false
+     */
+    public boolean task4(Stream<T> stream, T pattern){
+        // YOUR CODE HERE
+        return false;
     }
 }
