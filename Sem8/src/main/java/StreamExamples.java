@@ -2,13 +2,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 public class StreamExamples {
     public static void main(String[] args) {
-        IntStream.of(1, 2, 3, 4)
-                .filter(s -> s % 2 == 0)
-                .sorted()
-                .forEach(System.out::println);
+        Stream<Integer> stream = Stream.iterate(-3, n -> n * 2).limit(100);
     }
 
     /**
@@ -41,10 +39,15 @@ public class StreamExamples {
     public static void streamApproach() {
         List<Product> products = prepareProducts();
 
-        products.stream()
-                .filter(s -> s.getPrice() < 14)
+        Stream<Product> prod = products.stream();
+
+        prod.filter(s -> s.getPrice() < 14)
+                .limit(3)
                 .sorted()
                 .forEach(System.out::println);
+
+        // Stream cannot be used more than one time!
+        //prod.count(); throws exception
     }
 
 

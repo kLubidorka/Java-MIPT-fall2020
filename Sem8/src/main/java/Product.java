@@ -24,6 +24,16 @@ public class Product implements Comparable<Product> {
     @Override
     public int compareTo(Product product) {
         return Integer.compare(this.id, product.id);
+
+        // Or the same:
+
+//        if (this.id > product.id){
+//            return 1;
+//        }
+//        if (this.id < product.id){
+//            return -1;
+//        }
+//        return 0;
     }
 
     @Override
