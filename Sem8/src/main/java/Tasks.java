@@ -1,5 +1,6 @@
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -35,10 +36,18 @@ public class Tasks<T> {
     }
 
     /**
-     * Return true if at least one element equals to "pattern" can be found in stream, else return false
+     * Return true if at least one element equal to "pattern" can be found in stream, else return false
      */
     public boolean task4(Stream<T> stream, T pattern){
         // YOUR CODE HERE
         return false;
+    }
+
+    /**
+     * Return sorted list of stream elements without duplicates
+     */
+    public List<T> task5(Stream<T> stream){
+        // YOUR CODE HERE
+        return null;
     }
 }

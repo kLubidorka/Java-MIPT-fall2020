@@ -1,5 +1,6 @@
 import org.junit.jupiter.api.*;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.stream.Stream;
@@ -37,5 +38,12 @@ public class TasksTester {
         Tasks<Integer> intTask = new Tasks<>();
         assertTrue(intTask.task4(Stream.of(1, 2, 3, 4), 4));
         assertFalse(intTask.task4(Stream.of(1, 2, 3, 4), 5));
+    }
+
+    @Test
+    void task5(){
+        Tasks<String> stringTasks = new Tasks<>();
+        assertEquals(stringTasks.task5(Stream.of("abc", "abc", "a", "aa")), Arrays.asList("a", "aa", "abc"));
+        assertEquals(stringTasks.task5(Stream.of()), Collections.emptyList());
     }
 }
