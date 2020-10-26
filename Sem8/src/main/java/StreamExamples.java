@@ -46,7 +46,7 @@ public class StreamExamples {
                 .forEach(System.out::println);
 
         // Stream cannot be used more than one time!
-        //prod.count(); throws exception
+        // prod.count(); throws exception
     }
 
 
