@@ -1,12 +1,11 @@
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
 public class StreamExamples {
     public static void main(String[] args) {
-        Stream<Integer> stream = Stream.iterate(-3, n -> n * 2).limit(100);
+        speedTest();
     }
 
     /**
@@ -59,5 +58,62 @@ public class StreamExamples {
         products.add(new Product(4, 15, "Apple"));
 
         return products;
+    }
+
+    public static void speedTest(){
+        long startTime;
+        long notoptTime;
+        long optTime;
+        long bestTime;
+
+        // Reduce if you run this sample on slow computer
+        int streamSize = 1_000_000_000;
+
+        Stream<Integer> stream = Stream.iterate(0, n -> n + 1).limit(streamSize);
+
+        // not optimal solution
+        startTime = System.currentTimeMillis();
+        boolean result = unoptimized(stream);
+        notoptTime = System.currentTimeMillis() - startTime;
+
+        // reload stream
+        stream = Stream.iterate(0, n -> n + 1).limit(streamSize);
+
+        // optimal solution
+        startTime = System.currentTimeMillis();
+        boolean result1 = optimized(stream);
+        optTime = System.currentTimeMillis() - startTime;
+
+        // reload stream
+        stream = Stream.iterate(0, n -> n + 1).limit(streamSize);
+
+        // best solution
+        startTime = System.currentTimeMillis();
+        boolean result2 = best(stream);
+        bestTime = System.currentTimeMillis() - startTime;
+
+        System.out.printf("Not optimal solution time: %d ms\n" +
+                "Optimal solution time: %d ms\n" +
+                "Best solution time: %d ms\n",
+                notoptTime, optTime, bestTime);
+
+        // Not optimal solution time: 9024 ms
+        // Optimal solution time: 1 ms
+        // Best solution time: 1 ms
+
+        // So, it's important to understand how these methods work!
+    }
+
+
+    static boolean unoptimized(Stream<Integer> stream){
+        return stream.filter(el -> el == 100).count() == 0;
+    }
+
+    static boolean optimized(Stream<Integer> stream){
+        return stream.filter(el -> el == 100).limit(1).count() == 0;
+    }
+
+    static boolean best(Stream<Integer> stream){
+        return stream.anyMatch(el -> el == 100);
     }
 }

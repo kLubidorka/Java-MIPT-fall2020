@@ -44,6 +44,8 @@ public class TasksTester {
     void task5(){
         Tasks<String> stringTasks = new Tasks<>();
         assertEquals(stringTasks.task5(Stream.of("abc", "abc", "a", "aa")), Arrays.asList("a", "aa", "abc"));
+        Tasks<Integer> intTasks = new Tasks<>();
+        assertEquals(intTasks.task5(Stream.of(3, 2, 4, 2)), Arrays.asList(2, 3, 4));
         assertEquals(stringTasks.task5(Stream.of()), Collections.emptyList());
     }
 }
