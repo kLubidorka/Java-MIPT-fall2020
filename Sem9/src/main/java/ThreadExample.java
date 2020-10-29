@@ -1,14 +1,17 @@
 public class ThreadExample {
     public static void main(String[] args) {
-        // #1
-        Thread thread1 = new Thread(new HelloRunnable());
-        thread1.start();
+//        // #1
+//        Thread thread1 = new Thread(new HelloRunnable());
+//        thread1.start();
+//
+//        // #2
+//        HelloThread thread2 = new HelloThread(2);
+//        thread2.start();
+//
+//        reordering();
 
-        // #2
-        HelloThread thread2 = new HelloThread(2);
-        thread2.start();
-
-        reordering();
+        SomeThread someThread = new SomeThread();
+        someThread.start();
     }
 
     public static void reordering(){
@@ -33,5 +36,19 @@ class HelloThread extends Thread {
 
     public void run() {
         System.out.printf("Hello from thread #%d\n", idx);
+    }
+}
+
+class SomeThread extends Thread{
+    public void run() {
+        superImportantCalculations();
+    }
+
+    void superImportantCalculations(){
+        try{
+            Thread.sleep(1000);
+        } catch (InterruptedException e){
+            System.out.println("We were interrupted! Let's stop");
+        }
     }
 }
