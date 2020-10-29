@@ -1,14 +1,14 @@
 public class ThreadExample {
     public static void main(String[] args) {
-//        // #1
-//        Thread thread1 = new Thread(new HelloRunnable());
-//        thread1.start();
-//
-//        // #2
-//        HelloThread thread2 = new HelloThread(2);
-//        thread2.start();
-//
-//        reordering();
+        // #1
+        Thread thread1 = new Thread(new HelloRunnable());
+        thread1.start();
+
+        // #2
+        HelloThread thread2 = new HelloThread(2);
+        thread2.start();
+
+        reordering();
 
         SomeThread someThread = new SomeThread();
         someThread.start();
