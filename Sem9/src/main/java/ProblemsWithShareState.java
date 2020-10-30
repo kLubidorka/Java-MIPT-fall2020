@@ -2,7 +2,7 @@ import java.util.stream.Stream;
 
 public class ProblemsWithShareState {
     public static void main(String[] args) throws InterruptedException {
-        raceCondition();
+        //raceCondition();
         Reordering.main();
     }
 
@@ -18,9 +18,6 @@ public class ProblemsWithShareState {
         System.out.println(inc1.value);
     }
 
-    public static void reordering() {
-
-    }
 }
 
 class Increment {

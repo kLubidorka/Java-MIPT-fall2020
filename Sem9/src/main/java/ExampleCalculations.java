@@ -53,11 +53,10 @@ public class ExampleCalculations {
         int[] array = prepareArray();
         singleThreadCalc(array);
         try{
-            multithreadCalc(4, array);
+            multithreadCalc(16, array);
         } catch (InterruptedException e){
             System.out.println("Caught InterruptedException");
         }
-
     }
 }
 
