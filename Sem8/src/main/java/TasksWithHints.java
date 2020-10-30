@@ -41,6 +41,9 @@ public class TasksWithHints<T> {
      * Solution:
      * 1) Use 'filter' to get rid of elements that are not equal to pattern
      * 2) Use 'count' to calculate the answer
+     *
+     * Code:
+     * return stream.filter(n -> n == pattern).count();
      */
     public long task1(Stream<T> stream, T pattern){
         // YOUR CODE HERE
@@ -56,6 +59,9 @@ public class TasksWithHints<T> {
      * (we use 'max()' to cover the case when collection is empty)
      * 2) return last element (findFirst or findAny)
      * (you may use orElse(null) to avoid using Optional<T>)
+     *
+     * code:
+     * return collection.stream().skip(max(0, collection.size() - 1)).findFirst().orElse(null);
      */
     public T task2(Collection<T> collection){
         // YOUR CODE HERE
@@ -70,6 +76,9 @@ public class TasksWithHints<T> {
      * 1) Use 'skip' and 'limit' to end up with a stream of required elements
      * 2) Use 'collect' to convert stream to collection. You don't need to create your own collector,
      * since you can use standard collector 'Collectors.toList()'
+     *
+     * code:
+     * return stream.skip(1).limit(2).collect(Collectors.toList());
      */
     public List<T> task3(Stream<T> stream){
         // YOUR CODE HERE
@@ -83,6 +92,9 @@ public class TasksWithHints<T> {
      * 1) Use 'anyMatch'
      *
      *  Look at this experiment and try to explain the results {@link StreamExamples#speedTest()}
+     *
+     *  code:
+     *  return stream.anyMatch(n -> n == pattern);
      */
     public boolean task4(Stream<T> stream, T pattern){
         // YOUR CODE HERE
@@ -96,6 +108,9 @@ public class TasksWithHints<T> {
      * 1) Use 'distinct' to remove duplicates
      * 2) Use 'sorted'
      * 3) Use the same trick as you used in task 3
+     *
+     * code:
+     * return stream.distinct().sorted().collect(Collectors.toList());
      */
     public List<T> task5(Stream<T> stream){
         // YOUR CODE HERE
