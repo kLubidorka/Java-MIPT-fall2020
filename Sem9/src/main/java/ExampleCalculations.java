@@ -43,8 +43,6 @@ public class ExampleCalculations {
 
         for (Worker worker : workers){
             worker.join();
-        }
-        for (Worker worker : workers){
             sum += worker.getPartialSum();
         }
         long execTime = System.currentTimeMillis() - start;
