@@ -26,6 +26,9 @@ public class LowLevelConcurrencyPrimitivesDemo {
 class Increment {
     int value = 0;
 
+    // will this help?
+    //volatile int value = 0;
+
     public void increment() {
         value++;
     }
@@ -75,7 +78,6 @@ class DataTransferObjectImproved{
         synchronized (firstListLock){
             firstList = list;
         }
-
     }
 
     public void setSecondList(List<Object> list){
