@@ -1,3 +1,5 @@
+import javafx.scene.SceneAntialiasing;
+
 import java.util.List;
 import java.util.stream.Stream;
 
@@ -24,10 +26,10 @@ public class LowLevelConcurrencyPrimitivesDemo {
 }
 
 class Increment {
-    int value = 0;
+    //int value = 0;
 
     // will this help?
-    //volatile int value = 0;
+    volatile int value = 0;
 
     public void increment() {
         value++;
@@ -84,5 +86,36 @@ class DataTransferObjectImproved{
         synchronized (secondListLock){
             secondList = list;
         }
+    }
+}
+
+class example{
+    boolean condition = false;
+    Object obj = new Object();
+
+    synchronized void one(){
+        try{
+            while(!condition){
+                obj.wait();
+            }
+        } catch (InterruptedException ignored) {}
+
+        // do smth
+    }
+
+    synchronized void oneOne(){
+        try{
+            while(!condition){
+                obj.wait();
+            }
+        } catch (InterruptedException ignored) {}
+
+        // do smth
+    }
+
+    synchronized void two(){
+        condition = true;
+        obj.notify();
+        obj.notifyAll();
     }
 }

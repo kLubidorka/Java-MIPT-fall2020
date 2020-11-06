@@ -17,7 +17,7 @@ public class Reader implements Runnable {
         try{
             ThreadLocalRandom random = ThreadLocalRandom.current();
             Thread.sleep(random.nextLong(READER_DELAY));
-            database.write(id);
+            database.read(id);
         } catch (InterruptedException ignored) {}
     }
 }
