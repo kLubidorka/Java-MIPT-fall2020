@@ -3,7 +3,7 @@ package task;
 public class Runner {
     public static void main(String[] args) {
         try {
-            runDB(5, 2, new PrimitiveDB());
+            runDB(20, 2, new BetterDB());
         } catch (InterruptedException ignored){}
     }
 

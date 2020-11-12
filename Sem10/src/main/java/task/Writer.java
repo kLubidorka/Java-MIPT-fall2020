@@ -3,7 +3,7 @@ package task;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class Writer implements Runnable {
-    final long WRITER_DELAY = 700; // milliseconds
+    final long WRITER_DELAY = 400; // milliseconds
     private final DB database;
     private int id;
 
