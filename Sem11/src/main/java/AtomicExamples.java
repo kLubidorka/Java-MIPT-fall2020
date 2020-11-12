@@ -33,6 +33,8 @@ class Increment {
     }
 }
 
+// Original code
+// https://docs.oracle.com/javase/tutorial/displayCode.html?code=https://docs.oracle.com/javase/tutorial/essential/concurrency/examples/AtomicCounter.java
 class AtomicCounter {
     private AtomicInteger c = new AtomicInteger(0);
 
