@@ -4,7 +4,7 @@ public class FutureDemo {
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         Callable<Integer> task = () -> {
             // calculate something super important
-            TimeUnit.SECONDS.sleep(10);
+            TimeUnit.SECONDS.sleep(5);
             return 3;
         };
 
@@ -12,7 +12,8 @@ public class FutureDemo {
         Future<Integer> future = executor.submit(task);
 
         tryToGetResultImmediately(future);
-        tryToGetResultWithDelay(future, 10);
+        tryToGetResultWithDelay(future, 3);
+        executor.shutdownNow();
     }
 
     static void tryToGetResultImmediately(Future<Integer> future) throws ExecutionException, InterruptedException {

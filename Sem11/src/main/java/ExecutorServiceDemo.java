@@ -21,7 +21,8 @@ public class ExecutorServiceDemo {
         };
 
         executorService.submit(runnable);
-        executorService.shutdown();
+        //executorService.shutdown();
         //executorService.shutdownNow();
+        executorService.submit(runnable);
     }
 }

@@ -3,6 +3,15 @@ import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class LockExamples {
+    public static void main(String[] args) {
+        try{
+            int a = 1 / 0;
+        } catch(RuntimeException re){
+            System.out.println("RE");
+        } finally {
+            System.out.println("Finally section");
+        }
+    }
 }
 
 

@@ -3,7 +3,8 @@ import java.util.stream.Stream;
 
 public class AtomicExamples {
     public static void main(String[] args) {
-
+        raceCondition();
+        noRaceCondition();
     }
 
     public static void raceCondition() {
@@ -15,7 +16,7 @@ public class AtomicExamples {
 
     public static void noRaceCondition(){
         // RACE CONDITION
-        AtomicCounter  inc2 = new AtomicCounter ();
+        AtomicCounter  inc2 = new AtomicCounter();
         Stream.iterate(0, n -> n + 1).limit(10_000).parallel().forEach(n -> inc2.increment());
         System.out.println(inc2.value());
     }
