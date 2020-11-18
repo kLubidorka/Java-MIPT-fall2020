@@ -7,7 +7,7 @@ public class ConcurrentDataStructuresDemo {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.printf("Single thread implementation spent %d ms\n", SingleThreadHashMapSpeedTest());
-        System.out.printf("2thread implementation spent %d ms\n", MultiThreadHashMapSpeedTest(2));
+        System.out.printf("2-thread implementation spent %d ms\n", MultiThreadHashMapSpeedTest(2));
         System.out.printf("4-thread implementation spent %d ms\n", MultiThreadHashMapSpeedTest(4));
         System.out.printf("8-thread implementation spent %d ms\n", MultiThreadHashMapSpeedTest(8));
     }
