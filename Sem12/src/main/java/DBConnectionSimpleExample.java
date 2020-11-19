@@ -18,6 +18,7 @@ public class DBConnectionSimpleExample {
         connect();
         createTableFromFile();
         fillDb();
+        processResult();
     }
 
     static void loadDriver() {
@@ -97,7 +98,17 @@ public class DBConnectionSimpleExample {
     }
 
     static void processResult(){
-        ResultSet resultSet =  performQueryWithResult("select * from TEST_TABLE");
+        try(ResultSet resultSet =  performQueryWithResult("select * from TEST_TABLE;")){
+            resultSet.beforeFirst();
+            while(resultSet.next()){
+                String name = resultSet.getString("NAME");
+                int id = resultSet.getInt("ID");
+                resultSet.close();
+                System.out.printf("User %s has id %d\n", name, id);
+            }
+        } catch (SQLException e) {
+            logger.log(Level.SEVERE, Arrays.toString(e.getStackTrace()));
+        }
     }
 
     static void performQuery(String query){
@@ -111,8 +122,9 @@ public class DBConnectionSimpleExample {
     }
 
     static ResultSet performQueryWithResult(String query){
-        try (Statement stmt = connection.createStatement()) {
-            ResultSet resultSet =  stmt.executeQuery(query);
+        try {
+            Statement stmt = connection.createStatement();
+            ResultSet resultSet = stmt.executeQuery(query);
             logger.log(Level.INFO, "Query success");
             return resultSet;
         } catch (SQLException e) {
