@@ -13,11 +13,12 @@ public class DBConnectionSimpleExample {
     private static Connection connection;
     private static Logger logger;
 
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SQLException {
         loadDriver();
         connect();
         createTableFromFile();
         fillDb();
+        performQueryWithPreparedStatement();
         processResult();
     }
 
@@ -98,12 +99,11 @@ public class DBConnectionSimpleExample {
     }
 
     static void processResult(){
-        try(ResultSet resultSet =  performQueryWithResult("select * from TEST_TABLE;")){
+        try(ResultSet resultSet = performQueryWithResult("select * from TEST_TABLE;")){
             resultSet.beforeFirst();
             while(resultSet.next()){
                 String name = resultSet.getString("NAME");
                 int id = resultSet.getInt("ID");
-                resultSet.close();
                 System.out.printf("User %s has id %d\n", name, id);
             }
         } catch (SQLException e) {
@@ -132,5 +132,12 @@ public class DBConnectionSimpleExample {
             logger.log(Level.SEVERE, Arrays.toString(e.getStackTrace()));
             throw new RuntimeException("Query fail");
         }
+    }
+
+    static void performQueryWithPreparedStatement() throws SQLException {
+        PreparedStatement pstmt = connection.prepareStatement("UPDATE TEST_TABLE SET NAME = ? WHERE ID = ?");
+        pstmt.setString(1, "ALEX");
+        pstmt.setInt(2, 12);
+        pstmt.execute();
     }
 }
