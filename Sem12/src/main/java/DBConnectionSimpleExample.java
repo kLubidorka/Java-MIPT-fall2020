@@ -53,8 +53,11 @@ public class DBConnectionSimpleExample {
     }
 
     static void createTable() {
+        // sql injection
+        String tableName = "; drop table USERS cascade";
+        // input
         String createString =
-                "drop table if exists TEST_TABLE;" +
+                "drop table if exists" + tableName + ";" +
                         "create table TEST_TABLE " +
                         "(NAME varchar(30) NOT NULL, " +
                         "ID integer NOT NULL, " +
@@ -96,6 +99,8 @@ public class DBConnectionSimpleExample {
 
     static void fillDb(){
         performQuery("insert into TEST_TABLE values('Dmitry', 12)");
+        performQuery("insert into TEST_TABLE values('Ali', 8)");
+        performQuery("insert into TEST_TABLE values('Islam', 89)");
     }
 
     static void processResult(){
