@@ -39,19 +39,14 @@
     </build>
 
     <dependencies>
+        <!-- Dependency for H2 driver -->
         <dependency>
-            <!-- Dependency for H2 driver -->
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
             <scope>test</scope>
         </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>RELEASE</version>
-            <scope>test</scope>
-        </dependency>
+        <!-- Dependency for CSV documents -->
         <dependency>
             <groupId>net.sf.opencsv</groupId>
             <artifactId>opencsv</artifactId>
@@ -62,6 +57,8 @@
             <artifactId>opencsv</artifactId>
             <version>2.4</version>
         </dependency>
+
+        <!-- Dependencies for unit testing -->
         <dependency>
             <groupId>org.junit.jupiter</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -69,10 +66,20 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>RELEASE</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Dependency for JSON parsing -->
+        <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.5</version>
         </dependency>
+
+        <!-- Dependency for excel documents -->
         <dependency>
             <groupId>org.apache.poi</groupId>
             <artifactId>poi</artifactId>
@@ -83,6 +90,8 @@
             <artifactId>poi-ooxml</artifactId>
             <version>3.12</version>
         </dependency>
+
+        <!-- Dependency for charts -->
         <dependency>
             <groupId>org.jfree</groupId>
             <artifactId>jfreechart</artifactId>
