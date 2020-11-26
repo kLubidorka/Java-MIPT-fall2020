@@ -9,7 +9,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * Creates Excel tables representing results of QueryRunner
+ */
 public class AirtransXlsxTableBuilder {
     private final static String OUTPUT_XLS_PATH = "./query_results/";
     private final QueryRunner queryRunner;

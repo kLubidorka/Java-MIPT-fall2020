@@ -11,14 +11,14 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
+/**
+ * Provides methods to work with the Airtrans database
+ */
 public class AirtransDB {
     private final static String CSV_PATH = "./csv_data/";
     private final static String QUERIES_PATH = "./src/main/sqlQueries/";
@@ -66,11 +66,11 @@ public class AirtransDB {
         }
     }
 
-    private void downloadFile(String file_url, String placeToWrite, String fileName) throws IOException {
+    private void downloadFile(String file_url, String fileName) throws IOException {
         URL url = new URL(file_url);
         URLConnection connection = url.openConnection();
         InputStream inputStream = connection.getInputStream();
-        Path path = new File(placeToWrite + fileName).toPath();
+        Path path = new File(AirtransDB.CSV_PATH + fileName).toPath();
         Files.copy(inputStream, path);
     }
 
@@ -83,7 +83,7 @@ public class AirtransDB {
         for (BaseTable table : tables) {
             String tableName = table.getTableName();
             String url = String.format(DATA_SOURCE + "%s.csv", tableName);
-            downloadFile(url, CSV_PATH, tableName + ".csv");
+            downloadFile(url, tableName + ".csv");
         }
     }
 

@@ -9,6 +9,9 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Runs queries from the task
+ */
 public class QueryRunner {
     private final static String QUERIES_PATH = AirtransDB.getQueriesPath();
     static Logger logger;

@@ -16,7 +16,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * Creates charts representing results of QueryRunner
+ */
 public class AirtransChartBuilder {
     private final QueryRunner queryRunner;
     private static final int chartWidth = 1920;

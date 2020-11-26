@@ -7,7 +7,9 @@ import java.util.logging.Logger;
 import java.util.logging.Level;
 import java.io.FileReader;
 
-
+/**
+ * Provides methods to manage connection with the Airtrans database implementation
+ */
 public class AirtransDBConnection {
     private static final String DB_URL = "jdbc:h2:./db/Airtrans";
     private static final String DB_Driver = "org.h2.Driver";
