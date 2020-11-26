@@ -1,6 +1,7 @@
 package DB;
 
 import java.awt.Font;
+
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
@@ -17,21 +18,25 @@ import java.util.ArrayList;
 
 
 public class AirtransChartBuilder {
-    private static DefaultCategoryDataset fillDataset(ArrayList<String[]> data){
-        final DefaultCategoryDataset dataset =
-                new DefaultCategoryDataset();
-        for (String[] row : data){
-            dataset.addValue(Double.parseDouble(row[1]), "default" ,row[0]);
+    private final QueryRunner queryRunner;
+    public AirtransChartBuilder(){
+        queryRunner = new QueryRunner();
+    }
+
+    private DefaultCategoryDataset fillDataset(ArrayList<String[]> data) {
+        final DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        for (String[] row : data) {
+            dataset.addValue(Double.parseDouble(row[1]), "default", row[0]);
         }
         return dataset;
     }
 
-    private static void setupChart(JFreeChart barChart, String title){
+    private void setupChart(JFreeChart barChart, String title) {
         CategoryPlot plot = barChart.getCategoryPlot();
         CategoryAxis axis = plot.getDomainAxis();
 
         Font font = new Font("Cambria", Font.BOLD, 25);
-        axis.setTickLabelFont( font);
+        axis.setTickLabelFont(font);
         Font font3 = new Font("Cambria", Font.BOLD, 30);
         barChart.setTitle(new org.jfree.chart.title.TextTitle(title,
                 new java.awt.Font("Cambria", java.awt.Font.BOLD, 40)));
@@ -43,8 +48,8 @@ public class AirtransChartBuilder {
         renderer.setBarPainter(new StandardBarPainter());
     }
 
-    public static void query4CreateBarChart(String filepath) throws IOException {
-        ArrayList<String[]> data = AirtransDB.getCancellationStatistics();
+    public void query4CreateBarChart(String filepath) throws IOException {
+        ArrayList<String[]> data = queryRunner.getCancellationStatistics();
         DefaultCategoryDataset dataset = fillDataset(data);
         String title = "Number of cancelled flights w.r.t month";
         String categoryAxis = "Month";
@@ -62,10 +67,10 @@ public class AirtransChartBuilder {
         ChartUtilities.saveChartAsPNG(new File(filepath), barChart, width, height);
     }
 
-    public static void query5CreateBarCharts(String filepath1, String filepath2) throws IOException {
-        for (int i = 0; i < 2; i++){
+    public void query5CreateBarCharts(String filepath1, String filepath2) throws IOException {
+        for (int i = 0; i < 2; i++) {
             ArrayList<String[]> data;
-            data = i == 0 ? AirtransDB.getFlightsToMoscow() : AirtransDB.getFlightsFromMoscow();
+            data = i == 0 ? queryRunner.getFlightsToMoscow() : queryRunner.getFlightsFromMoscow();
             DefaultCategoryDataset dataset = fillDataset(data);
             String title = i == 0 ? "Number of flights to Moscow" : "Number of flights from Moscow";
             String categoryAxis = "Weekday";
@@ -84,8 +89,8 @@ public class AirtransChartBuilder {
         }
     }
 
-    public static void query6CreateBarCharts(String filepath, String from, String till) throws IOException {
-        ArrayList<String[]> data = AirtransDB.cancelFlights(from, till);
+    public void query6CreateBarCharts(String filepath, String from, String till) throws IOException {
+        ArrayList<String[]> data = queryRunner.cancelFlights(from, till);
         DefaultCategoryDataset dataset = fillDataset(data);
         String title = "Foregone earnings w.r.t date";
         String categoryAxis = "Date";

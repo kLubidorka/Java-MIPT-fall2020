@@ -9,11 +9,15 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 
-
 public class AirtransXlsxTableBuilder {
-    final static String OUTPUT_XLS_PATH = "./query_results/";
+    private final static String OUTPUT_XLS_PATH = "./query_results/";
+    private final QueryRunner queryRunner;
 
-    private static void build_excel_table(String heading,
+    public AirtransXlsxTableBuilder(){
+        queryRunner = new QueryRunner();
+    }
+
+    private void build_excel_table(String heading,
                                           String[] column_descriptions,
                                           ArrayList<String[]> data,
                                           String filePath) throws IOException {
@@ -51,38 +55,38 @@ public class AirtransXlsxTableBuilder {
         book.close();
     }
 
-    public static void b1CreateTable() throws IOException {
+    public void b1CreateTable() throws IOException {
         build_excel_table("Cities with many airports", new String[]{"City", "Airports"},
-                AirtransDB.getCitiesWithManyAirports(), OUTPUT_XLS_PATH + "B1.xlsx");
+                queryRunner.getCitiesWithManyAirports(), OUTPUT_XLS_PATH + "B1.xlsx");
     }
 
-    public static void b2CreateTable(int citiesNum) throws IOException {
+    public void b2CreateTable(int citiesNum) throws IOException {
         build_excel_table("Cities with many flights cancelled", new String[]{"City", "Cancelled flights"},
-                AirtransDB.getCitiesWithManyCancelledFlights(citiesNum), OUTPUT_XLS_PATH + "B2.xlsx");
+                queryRunner.getCitiesWithManyCancelledFlights(citiesNum), OUTPUT_XLS_PATH + "B2.xlsx");
     }
 
-    public static void b3CreateTable() throws IOException {
+    public void b3CreateTable() throws IOException {
         build_excel_table("Shortest routes", new String[]{"City", "Destination", "Travel time in minutes"},
-                AirtransDB.getShortestRoutes(), OUTPUT_XLS_PATH + "B3.xlsx");
+                queryRunner.getShortestRoutes(), OUTPUT_XLS_PATH + "B3.xlsx");
     }
 
-    public static void b4CreateTable() throws IOException {
+    public void b4CreateTable() throws IOException {
         build_excel_table("Cancelled flights", new String[]{"Month", "Cancelled flights"},
-                AirtransDB.getCancellationStatistics(), OUTPUT_XLS_PATH + "B4.xlsx");
+                queryRunner.getCancellationStatistics(), OUTPUT_XLS_PATH + "B4.xlsx");
     }
 
-    public static void b5FromCreateTable() throws IOException {
+    public void b5FromCreateTable() throws IOException {
         build_excel_table("Flights from Moscow", new String[]{"Week day", "Flights from Moscow"},
-                AirtransDB.getFlightsFromMoscow(), OUTPUT_XLS_PATH + "B5From.xlsx");
+                queryRunner.getFlightsFromMoscow(), OUTPUT_XLS_PATH + "B5From.xlsx");
     }
 
-    public static void b5ToCreateTable() throws IOException {
+    public void b5ToCreateTable() throws IOException {
         build_excel_table("Flights to Moscow", new String[]{"Week day", "Flights to Moscow"},
-                AirtransDB.getFlightsToMoscow(), OUTPUT_XLS_PATH + "B5To.xlsx");
+                queryRunner.getFlightsToMoscow(), OUTPUT_XLS_PATH + "B5To.xlsx");
     }
 
-    public static void b7CreateTable(String from, String till) throws IOException {
+    public void b7CreateTable(String from, String till) throws IOException {
         build_excel_table("Flights from Moscow", new String[]{"Date", "Foregone earnings of airlines"},
-                AirtransDB.cancelFlights(from, till), OUTPUT_XLS_PATH + "B7.xlsx");
+                queryRunner.cancelFlights(from, till), OUTPUT_XLS_PATH + "B7.xlsx");
     }
 }

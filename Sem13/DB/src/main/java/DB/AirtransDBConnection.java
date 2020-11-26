@@ -48,12 +48,22 @@ public class AirtransDBConnection {
         }
     }
 
+    public static void closeConnection() {
+        try {
+            if (connection != null && !connection.isClosed())
+                connection.close();
+        } catch (SQLException e) {
+            logger.log(Level.WARNING ,"Failed to close connection to Airtrans DB");
+        }
+        logger.info("Closed connection to Airtrans DB");
+    }
+
     public static Connection getConnection(){
         reopenConnection();
         return connection;
     }
 
-    private static boolean rollback(Savepoint save, boolean transactionComplete){
+    private static boolean rollbackCommit(Savepoint save, boolean transactionComplete){
         if (transactionComplete){
             return true;
         }
@@ -120,7 +130,7 @@ public class AirtransDBConnection {
             logger.log(Level.SEVERE ,"AirtransDBConnection failed to execute query");
             logger.log(Level.SEVERE , Arrays.toString(sqlException.getStackTrace()));
         }
-        return rollback(save, transactionComplete);
+        return rollbackCommit(save, transactionComplete);
     }
 
     public static ResultSet executeSqlSelectQueryFromFile(File file){
@@ -142,13 +152,4 @@ public class AirtransDBConnection {
         return null;
     }
 
-    public static void closeConnection() {
-        try {
-            if (connection != null && !connection.isClosed())
-                connection.close();
-        } catch (SQLException e) {
-            logger.log(Level.WARNING ,"Failed to close connection to Airtrans DB");
-        }
-        logger.info("Closed connection to Airtrans DB");
-    }
 }

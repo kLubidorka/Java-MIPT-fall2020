@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
+import DB.QueryRunner;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -15,14 +16,13 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class AirtransTest {
+    static QueryRunner queryRunner;
+
     @BeforeAll
     static void setup() {
-        try {
-            new AirtransDB(false, false);
-            System.out.println("DB is ready");
-        } catch (IOException e) {
-            assert false;
-        }
+        new AirtransDB();
+        queryRunner = new QueryRunner();
+        System.out.println("DB is ready");
     }
 
     @AfterAll
@@ -34,7 +34,7 @@ class AirtransTest {
 
     @Test
     void queryB1Test() {
-        ArrayList<String[]> result = AirtransDB.getCitiesWithManyAirports();
+        ArrayList<String[]> result = queryRunner.getCitiesWithManyAirports();
         assertNotNull(result);
         for (String[] row : result) {
             System.out.println(row[0] + ": " + row[1]);
@@ -43,7 +43,7 @@ class AirtransTest {
 
     @Test
     void queryB2Test() {
-        ArrayList<String[]> result = AirtransDB.getCitiesWithManyCancelledFlights(10);
+        ArrayList<String[]> result = queryRunner.getCitiesWithManyCancelledFlights(10);
         assertNotNull(result);
         for (String[] row : result) {
             System.out.println(row[0] + ": " + row[1]);
@@ -52,7 +52,7 @@ class AirtransTest {
 
     @Test
     void queryB3Test() {
-        ArrayList<String[]> result = AirtransDB.getShortestRoutes();
+        ArrayList<String[]> result = queryRunner.getShortestRoutes();
         assertNotNull(result);
         for (String[] row : result) {
             System.out.println(row[0] + " --> " + row[1] + ": " + row[2]);
@@ -61,7 +61,7 @@ class AirtransTest {
 
     @Test
     void queryB4Test() {
-        ArrayList<String[]> result = AirtransDB.getCancellationStatistics();
+        ArrayList<String[]> result = queryRunner.getCancellationStatistics();
         assertNotNull(result);
         for (String[] row : result) {
             System.out.println(row[0] + ": " + row[1]);
@@ -70,7 +70,7 @@ class AirtransTest {
 
     @Test
     void queryB5ToTest() {
-        ArrayList<String[]> result = AirtransDB.getFlightsToMoscow();
+        ArrayList<String[]> result = queryRunner.getFlightsToMoscow();
         assertNotNull(result);
         for (String[] row : result) {
             System.out.println(row[0] + ": " + row[1]);
@@ -79,7 +79,7 @@ class AirtransTest {
 
     @Test
     void queryB5FromTest() {
-        ArrayList<String[]> result = AirtransDB.getFlightsFromMoscow();
+        ArrayList<String[]> result = queryRunner.getFlightsFromMoscow();
         assertNotNull(result);
         for (String[] row : result) {
             System.out.println(row[0] + ": " + row[1]);
@@ -88,13 +88,13 @@ class AirtransTest {
 
     @Test
     void queryB6Test() {
-        int result = AirtransDB.discardAircraft("_");
+        int result = queryRunner.discardAircraft("_");
         System.out.println(String.format("Deleted %d rows\n", result));
     }
 
     @Test
     void queryB7Test() {
-        ArrayList<String[]> result = AirtransDB.cancelFlights("01.08.2017", "15.08.2017");
+        ArrayList<String[]> result = queryRunner.cancelFlights("01.08.2017", "15.08.2017");
         for (String[] row : result) {
             System.out.println(row[0] + ": " + row[1]);
         }
@@ -102,7 +102,7 @@ class AirtransTest {
 
     @Test
     void queryB8Test() {
-        boolean result = AirtransDB.addTicket("testtesttestt",
+        boolean result = queryRunner.addTicket("testtesttestt",
                 "0002D8",
                 "2017-08-07 21:40:00+03",
                 "6865 913231",
@@ -125,13 +125,14 @@ class AirtransTest {
     @Test
     void getAllTables() {
         try {
-            AirtransXlsxTableBuilder.b1CreateTable();
-            AirtransXlsxTableBuilder.b2CreateTable(12);
-            AirtransXlsxTableBuilder.b3CreateTable();
-            AirtransXlsxTableBuilder.b4CreateTable();
-            AirtransXlsxTableBuilder.b5ToCreateTable();
-            AirtransXlsxTableBuilder.b5FromCreateTable();
-            AirtransXlsxTableBuilder.b7CreateTable("01.08.2017", "15.08.2017");
+            AirtransXlsxTableBuilder tableBuilder = new AirtransXlsxTableBuilder();
+            tableBuilder.b1CreateTable();
+            tableBuilder.b2CreateTable(12);
+            tableBuilder.b3CreateTable();
+            tableBuilder.b4CreateTable();
+            tableBuilder.b5ToCreateTable();
+            tableBuilder.b5FromCreateTable();
+            tableBuilder.b7CreateTable("01.08.2017", "15.08.2017");
         } catch (IOException e) {
             assert false;
         }
@@ -141,10 +142,11 @@ class AirtransTest {
     void buildAllCharts() {
         final String OUTPUT_PNG_PATH = "./charts/";
         try {
-            AirtransChartBuilder.query4CreateBarChart(OUTPUT_PNG_PATH + "query4BarChart.png");
-            AirtransChartBuilder.query5CreateBarCharts(OUTPUT_PNG_PATH + "query5ABarChart.png",
+            AirtransChartBuilder chartBuilder = new AirtransChartBuilder();
+            chartBuilder.query4CreateBarChart(OUTPUT_PNG_PATH + "query4BarChart.png");
+            chartBuilder.query5CreateBarCharts(OUTPUT_PNG_PATH + "query5ABarChart.png",
                     OUTPUT_PNG_PATH + "query5BBarChart.png");
-            AirtransChartBuilder.query6CreateBarCharts(OUTPUT_PNG_PATH + "query6BarChart.png",
+            chartBuilder.query6CreateBarCharts(OUTPUT_PNG_PATH + "query6BarChart.png",
                     "01.08.2017",
                     "09.08.2017");
         } catch (IOException e) {
