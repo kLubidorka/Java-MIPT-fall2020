@@ -12,23 +12,26 @@ import java.util.logging.Logger;
 public class QueryRunner {
     private final static String QUERIES_PATH = AirtransDB.getQueriesPath();
     static Logger logger;
-
+    private final AirtransDB airtransDB;
     static{
         logger = Logger.getLogger(QueryRunner.class.getName());
     }
 
+    public QueryRunner(AirtransDB db){
+        airtransDB = db;
+    }
 
     /**
      * @return cities with more than one airport
      */
     public ArrayList<String[]> getCitiesWithManyAirports() {
         ArrayList<String[]> returnValue = new ArrayList<>();
-        ResultSet queryResult = AirtransDB.executeSelectQuery("task_B/B1.sql");
+        ResultSet queryResult = airtransDB.executeSelectQuery("task_B/B1.sql");
         try {
             queryResult.beforeFirst();
             while (queryResult.next()) {
                 String[] result = new String[2];
-                result[0] = AirtransDB.getCityFromJson(queryResult.getString("city"));
+                result[0] = airtransDB.getCityFromJson(queryResult.getString("city"));
                 result[1] = queryResult.getString("airports_in_city");
                 returnValue.add(result);
             }
@@ -54,7 +57,7 @@ public class QueryRunner {
             queryResult.beforeFirst();
             while (queryResult.next()) {
                 String[] result = new String[2];
-                result[0] = AirtransDB.getCityFromJson(queryResult.getString("city"));
+                result[0] = airtransDB.getCityFromJson(queryResult.getString("city"));
                 result[1] = queryResult.getString("cancelled_flights");
                 returnValue.add(result);
             }
@@ -70,12 +73,12 @@ public class QueryRunner {
     public ArrayList<String[]> getShortestRoutes() {
         ArrayList<String[]> returnValue = new ArrayList<>();
         try {
-            ResultSet queryResult = AirtransDB.executeSelectQuery("task_B/B3.sql");
+            ResultSet queryResult = airtransDB.executeSelectQuery("task_B/B3.sql");
             queryResult.beforeFirst();
             while (queryResult.next()) {
                 String[] result = new String[3];
-                result[0] = AirtransDB.getCityFromJson(queryResult.getString("from_city"));
-                result[1] = AirtransDB.getCityFromJson(queryResult.getString("to_city"));
+                result[0] = airtransDB.getCityFromJson(queryResult.getString("from_city"));
+                result[1] = airtransDB.getCityFromJson(queryResult.getString("to_city"));
                 result[2] = queryResult.getString("duration");
                 returnValue.add(result);
             }
@@ -93,7 +96,7 @@ public class QueryRunner {
                 "Ноябрь", "Декабрь"};
         ArrayList<String[]> returnValue = new ArrayList<>();
         try {
-            ResultSet queryResult = AirtransDB.executeSelectQuery("task_B/B4.sql");
+            ResultSet queryResult = airtransDB.executeSelectQuery("task_B/B4.sql");
             queryResult.beforeFirst();
             while (queryResult.next()) {
                 String[] result = new String[2];
@@ -112,9 +115,9 @@ public class QueryRunner {
         try {
             ResultSet queryResult;
             if (isFrom) {
-                queryResult = AirtransDB.executeSelectQuery("task_B/B5-2.sql");
+                queryResult = airtransDB.executeSelectQuery("task_B/B5-2.sql");
             } else {
-                queryResult = AirtransDB.executeSelectQuery("task_B/B5-1.sql");
+                queryResult = airtransDB.executeSelectQuery("task_B/B5-1.sql");
             }
             queryResult.beforeFirst();
             while (queryResult.next()) {

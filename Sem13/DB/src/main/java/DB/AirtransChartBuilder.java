@@ -19,8 +19,11 @@ import java.util.ArrayList;
 
 public class AirtransChartBuilder {
     private final QueryRunner queryRunner;
-    public AirtransChartBuilder(){
-        queryRunner = new QueryRunner();
+    private static final int chartWidth = 1920;
+    private static final int chartHeight = 1080;
+
+    public AirtransChartBuilder(QueryRunner runner) {
+        queryRunner = runner;
     }
 
     private DefaultCategoryDataset fillDataset(ArrayList<String[]> data) {
@@ -38,8 +41,7 @@ public class AirtransChartBuilder {
         Font font = new Font("Cambria", Font.BOLD, 25);
         axis.setTickLabelFont(font);
         Font font3 = new Font("Cambria", Font.BOLD, 30);
-        barChart.setTitle(new org.jfree.chart.title.TextTitle(title,
-                new java.awt.Font("Cambria", java.awt.Font.BOLD, 40)));
+        barChart.setTitle(new org.jfree.chart.title.TextTitle(title, new java.awt.Font("Cambria", java.awt.Font.BOLD, 40)));
 
         plot.getDomainAxis().setLabelFont(font3);
         plot.getRangeAxis().setLabelFont(font3);
@@ -54,17 +56,11 @@ public class AirtransChartBuilder {
         String title = "Number of cancelled flights w.r.t month";
         String categoryAxis = "Month";
         String valueAxis = "Number of flights";
-        JFreeChart barChart = ChartFactory.createBarChart(
-                title,
-                categoryAxis,
-                valueAxis,
-                dataset,
-                PlotOrientation.VERTICAL,
-                false, false, false);
+
+        JFreeChart barChart = ChartFactory.createBarChart(title, categoryAxis, valueAxis, dataset,
+                PlotOrientation.VERTICAL, false, false, false);
         setupChart(barChart, title);
-        int width = 1920;
-        int height = 1080;
-        ChartUtilities.saveChartAsPNG(new File(filepath), barChart, width, height);
+        ChartUtilities.saveChartAsPNG(new File(filepath), barChart, chartWidth, chartHeight);
     }
 
     public void query5CreateBarCharts(String filepath1, String filepath2) throws IOException {
@@ -75,17 +71,11 @@ public class AirtransChartBuilder {
             String title = i == 0 ? "Number of flights to Moscow" : "Number of flights from Moscow";
             String categoryAxis = "Weekday";
             String valueAxis = "Number of flights";
-            JFreeChart barChart = ChartFactory.createBarChart(
-                    title,
-                    categoryAxis,
-                    valueAxis,
-                    dataset,
-                    PlotOrientation.VERTICAL,
-                    false, false, false);
+
+            JFreeChart barChart = ChartFactory.createBarChart(title, categoryAxis, valueAxis, dataset,
+                    PlotOrientation.VERTICAL, false, false, false);
             setupChart(barChart, title);
-            int width = 1920;
-            int height = 1080;
-            ChartUtilities.saveChartAsPNG(new File(i == 0 ? filepath1 : filepath2), barChart, width, height);
+            ChartUtilities.saveChartAsPNG(new File(i == 0 ? filepath1 : filepath2), barChart, chartWidth, chartHeight);
         }
     }
 
@@ -95,16 +85,10 @@ public class AirtransChartBuilder {
         String title = "Foregone earnings w.r.t date";
         String categoryAxis = "Date";
         String valueAxis = "Foregone earnings";
-        JFreeChart barChart = ChartFactory.createBarChart(
-                title,
-                categoryAxis,
-                valueAxis,
-                dataset,
-                PlotOrientation.VERTICAL,
-                false, false, false);
+
+        JFreeChart barChart = ChartFactory.createBarChart(title, categoryAxis, valueAxis, dataset,
+                PlotOrientation.VERTICAL, false, false, false);
         setupChart(barChart, title);
-        int width = 1920;
-        int height = 1080;
-        ChartUtilities.saveChartAsPNG(new File(filepath), barChart, width, height);
+        ChartUtilities.saveChartAsPNG(new File(filepath), barChart, chartWidth, chartHeight);
     }
 }

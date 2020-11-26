@@ -111,7 +111,7 @@ public class AirtransDBConnection {
 
             for (String queryPart : queryParts) {
                 String trimmedQueryPart = queryPart.trim();
-                if (!trimmedQueryPart.equals("")) {
+                if (!trimmedQueryPart.isEmpty()) {
                     statement.executeUpdate(trimmedQueryPart);
                 }
             }

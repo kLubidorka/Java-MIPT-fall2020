@@ -23,13 +23,13 @@ public class AirtransDB {
     private final static String CSV_PATH = "./csv_data/";
     private final static String QUERIES_PATH = "./src/main/sqlQueries/";
     private final static String DATA_SOURCE = "https://storage.yandexcloud.net/airtrans-small/";
-    private static ArrayList<BaseTable> tables;
+    private ArrayList<BaseTable> tables;
 
     public static String getQueriesPath(){
         return QUERIES_PATH;
     }
 
-    static {
+    public AirtransDB(){
         try {
             tables = new ArrayList<>(Arrays.asList(new Aircrafts(), new Airports(), new Boarding_passes(),
                     new Bookings(), new Flights(), new Seats(), new Ticket_flights(), new Tickets()));
@@ -46,27 +46,27 @@ public class AirtransDB {
         }
     }
 
-    public static void dropAllTables() {
+    public void dropAllTables() {
         AirtransDBConnection.executeSqlUpdateQueryFromFile(new File(QUERIES_PATH + "DropAllTables.sql"));
     }
 
-    public static void createTables() {
+    public void createTables() {
         for (BaseTable table : tables) {
             table.createTable();
         }
     }
 
-    private static void addConstraints() {
+    private void addConstraints() {
         AirtransDBConnection.executeSqlUpdateQueryFromFile(new File(QUERIES_PATH + "AddConstraints.sql"));
     }
 
-    private static void loadTablesFromCsv() {
+    private void loadTablesFromCsv() {
         for (BaseTable table : tables) {
             table.insertDataFromCsv(CSV_PATH + table.getTableName() + ".csv");
         }
     }
 
-    private static void downloadFile(String file_url, String placeToWrite, String fileName) throws IOException {
+    private void downloadFile(String file_url, String placeToWrite, String fileName) throws IOException {
         URL url = new URL(file_url);
         URLConnection connection = url.openConnection();
         InputStream inputStream = connection.getInputStream();
@@ -74,7 +74,7 @@ public class AirtransDB {
         Files.copy(inputStream, path);
     }
 
-    public static void downloadCsv() throws IOException {
+    public void downloadCsv() throws IOException {
         File csvFolder = new File(CSV_PATH);
         if (csvFolder.exists()) {
             deleteFile(csvFolder);
@@ -97,11 +97,11 @@ public class AirtransDB {
         return fileToDelete.delete();
     }
 
-    public static ResultSet executeSelectQuery(String sqlFileName) {
+    public ResultSet executeSelectQuery(String sqlFileName) {
         return AirtransDBConnection.executeSqlSelectQueryFromFile(new File(QUERIES_PATH + sqlFileName));
     }
 
-    public static String getCityFromJson(String jsonStr) {
+    public String getCityFromJson(String jsonStr) {
         jsonStr = jsonStr.substring(1, jsonStr.length() - 1).replaceAll("\\\\", "");
         JsonParser jsonParser = new JsonParser();
         JsonObject jsonElement = jsonParser.parse(jsonStr).getAsJsonObject();

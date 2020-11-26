@@ -3,6 +3,7 @@ package DB;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFFont;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -13,46 +14,44 @@ public class AirtransXlsxTableBuilder {
     private final static String OUTPUT_XLS_PATH = "./query_results/";
     private final QueryRunner queryRunner;
 
-    public AirtransXlsxTableBuilder(){
-        queryRunner = new QueryRunner();
+    public AirtransXlsxTableBuilder(QueryRunner runner) {
+        queryRunner = runner;
     }
 
-    private void build_excel_table(String heading,
-                                          String[] column_descriptions,
-                                          ArrayList<String[]> data,
-                                          String filePath) throws IOException {
-        Workbook book = new HSSFWorkbook();
-        Sheet sheet = book.createSheet(heading);
-        Row firstRow = sheet.createRow(0);
+    private void build_excel_table(String heading, String[] column_descriptions,
+                                   ArrayList<String[]> data, String filePath) throws IOException {
+        try(Workbook book = new HSSFWorkbook()){
+            Sheet sheet = book.createSheet(heading);
+            Row firstRow = sheet.createRow(0);
 
-        CellStyle style = book.createCellStyle();
-        Font font = book.createFont();
-        font.setFontHeightInPoints((short) 10);
-        font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
-        style.setFont(font);
-        style.setLocked(true);
+            CellStyle style = book.createCellStyle();
+            Font font = book.createFont();
+            font.setFontHeightInPoints((short) 10);
+            font.setBoldweight(XSSFFont.BOLDWEIGHT_BOLD);
+            style.setFont(font);
+            style.setLocked(true);
 
-        int j = 0;
-        for (String rawCell : column_descriptions) {
-            Cell currentCell = firstRow.createCell(j++);
-            currentCell.setCellValue(rawCell);
-            currentCell.setCellStyle(style);
-        }
-
-        int i = 1;
-        for (String[] rawRow : data) {
-            Row row = sheet.createRow(i++);
-            j = 0;
-            for (String rawCell : rawRow) {
-                Cell currentCell = row.createCell(j++);
+            int j = 0;
+            for (String rawCell : column_descriptions) {
+                Cell currentCell = firstRow.createCell(j++);
                 currentCell.setCellValue(rawCell);
+                currentCell.setCellStyle(style);
             }
+
+            int i = 1;
+            for (String[] rawRow : data) {
+                Row row = sheet.createRow(i++);
+                j = 0;
+                for (String rawCell : rawRow) {
+                    Cell currentCell = row.createCell(j++);
+                    currentCell.setCellValue(rawCell);
+                }
+            }
+            for (int x = 0; x < sheet.getRow(0).getPhysicalNumberOfCells(); x++) {
+                sheet.autoSizeColumn(x);
+            }
+            book.write(new FileOutputStream(new File(filePath)));
         }
-        for (int x = 0; x < sheet.getRow(0).getPhysicalNumberOfCells(); x++) {
-            sheet.autoSizeColumn(x);
-        }
-        book.write(new FileOutputStream(new File(filePath)));
-        book.close();
     }
 
     public void b1CreateTable() throws IOException {

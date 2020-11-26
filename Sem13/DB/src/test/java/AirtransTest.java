@@ -20,8 +20,7 @@ class AirtransTest {
 
     @BeforeAll
     static void setup() {
-        new AirtransDB();
-        queryRunner = new QueryRunner();
+        queryRunner = new QueryRunner(new AirtransDB());
         System.out.println("DB is ready");
     }
 
@@ -125,7 +124,7 @@ class AirtransTest {
     @Test
     void getAllTables() {
         try {
-            AirtransXlsxTableBuilder tableBuilder = new AirtransXlsxTableBuilder();
+            AirtransXlsxTableBuilder tableBuilder = new AirtransXlsxTableBuilder(queryRunner);
             tableBuilder.b1CreateTable();
             tableBuilder.b2CreateTable(12);
             tableBuilder.b3CreateTable();
@@ -142,7 +141,7 @@ class AirtransTest {
     void buildAllCharts() {
         final String OUTPUT_PNG_PATH = "./charts/";
         try {
-            AirtransChartBuilder chartBuilder = new AirtransChartBuilder();
+            AirtransChartBuilder chartBuilder = new AirtransChartBuilder(queryRunner);
             chartBuilder.query4CreateBarChart(OUTPUT_PNG_PATH + "query4BarChart.png");
             chartBuilder.query5CreateBarCharts(OUTPUT_PNG_PATH + "query5ABarChart.png",
                     OUTPUT_PNG_PATH + "query5BBarChart.png");
