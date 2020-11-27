@@ -95,8 +95,8 @@ public class QueryRunner {
      * @return number of cancelled flights with respect to months
      */
     public ArrayList<String[]> getCancellationStatistics() {
-        String[] months = {"Январь", "Февраль", "Март", "Апрель", "Май", "Июнь", "Июль", "Август", "Сентябрь", "Октябрь",
-                "Ноябрь", "Декабрь"};
+        String[] months = {"January", "February", "March", "April", "May", "June", "July",
+                "August", "September", "Октябрь", "November", "December"};
         ArrayList<String[]> returnValue = new ArrayList<>();
         try {
             ResultSet queryResult = airtransDB.executeSelectQuery("task_B/B4.sql");
