@@ -7,7 +7,7 @@ import java.util.concurrent.CyclicBarrier;
  */
 public class CyclicBarrierDemo {
     static class Solver {
-        static int N;
+        static int ThreadsNum;
         static float[][] data;
         static CyclicBarrier barrier;
 
@@ -33,22 +33,22 @@ public class CyclicBarrierDemo {
             }
         }
 
-        public static void solve(float[][] matrix) {
+        public static void parallelMatrixSum(float[][] matrix) {
             data = matrix;
-            N = matrix.length;
-            barrier = new CyclicBarrier(N, () -> {
+            ThreadsNum = matrix.length;
+            barrier = new CyclicBarrier(ThreadsNum, () -> {
                 float sum = 0;
                 for (float[] floats : matrix) {
                     sum += floats[0];
                 }
                 System.out.printf("The sum is %f\n", sum);
             });
-            for (int i = 0; i < N; ++i)
+            for (int i = 0; i < ThreadsNum; ++i)
                 new Thread(new Worker(i)).start();
         }
     }
 
     public static void main(String[] args) {
-        Solver.solve(new float[][]{{1f, 2f, 3f}, {4f, 5f, 6f}, {7f, 8f}});
+        Solver.parallelMatrixSum(new float[][]{{1f, 2f, 3f}, {4f, 5f, 6f}, {7f, 8f}});
     }
 }

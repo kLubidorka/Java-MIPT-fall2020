@@ -13,7 +13,7 @@ import java.util.logging.Logger;
 import DB.AirtransDBConnection;
 import au.com.bytecode.opencsv.CSVReader;
 
-public abstract class BaseTable implements TableActions {
+public abstract class BaseTable {
     protected String tableName;
     static Logger logger;
 

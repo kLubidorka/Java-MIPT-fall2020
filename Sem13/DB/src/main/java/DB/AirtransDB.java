@@ -15,6 +15,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Provides methods to work with the Airtrans database
@@ -23,7 +24,7 @@ public class AirtransDB {
     private final static String CSV_PATH = "./csv_data/";
     private final static String QUERIES_PATH = "./src/main/sqlQueries/";
     private final static String DATA_SOURCE = "https://storage.yandexcloud.net/airtrans-small/";
-    private ArrayList<BaseTable> tables;
+    private List<BaseTable> tables;
 
     public static String getQueriesPath(){
         return QUERIES_PATH;

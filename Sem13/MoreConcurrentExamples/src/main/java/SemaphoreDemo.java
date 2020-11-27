@@ -7,7 +7,7 @@ import java.util.concurrent.Semaphore;
 public class SemaphoreDemo {
 
     static class Pool {
-        private static final int MAX_AVAILABLE = 100;
+        private static final int MAX_AVAILABLE = 10;
         private final Semaphore available = new Semaphore(MAX_AVAILABLE, true);
 
         public Object getItem() throws InterruptedException {
@@ -46,6 +46,5 @@ public class SemaphoreDemo {
             }
             return false;
         }
-
     }
 }

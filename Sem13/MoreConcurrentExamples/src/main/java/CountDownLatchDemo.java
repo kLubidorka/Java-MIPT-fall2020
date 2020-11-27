@@ -12,38 +12,40 @@ import java.util.concurrent.Executors;
 public class CountDownLatchDemo {
     static class Driver {
         static void main() throws InterruptedException {
-            int N = 5;
-            CountDownLatch doneSignal = new CountDownLatch(N);
-            ExecutorService e = Executors.newCachedThreadPool();
+            int workersNum = 5;
+            CountDownLatch doneSignal = new CountDownLatch(workersNum);
+            ExecutorService executor = Executors.newCachedThreadPool();
 
-            for (int i = 0; i < N; ++i){
-                e.execute(new WorkerRunnable(doneSignal, i));
-                System.out.printf("Worker #%d launched\n", i);
+            for (int workerNum = 0; workerNum < workersNum; ++workerNum){
+                executor.execute(new WorkerRunnable(doneSignal, workerNum));
             }
 
             doneSignal.await(); // wait for all to finish
             Thread.sleep(50L);
             System.out.println("Task completed");
-            e.shutdownNow();
+            executor.shutdownNow();
         }
     }
 
     static class WorkerRunnable implements Runnable {
         private final CountDownLatch doneSignal;
-        private final int i;
-        WorkerRunnable(CountDownLatch doneSignal, int i) {
+        private final int myNum;
+
+        WorkerRunnable(CountDownLatch doneSignal, int workerNum) {
             this.doneSignal = doneSignal;
-            this.i = i;
-        }
-        public void run() {
-            try {
-                Thread.sleep(100L); // doWork();
-            } catch (InterruptedException ignored) {
-            }
-            doneSignal.countDown();
-            System.out.printf("Worker #%d finished\n", i);
+            this.myNum = workerNum;
         }
 
+        public void run() {
+            try {
+                System.out.printf("Worker #%d launched\n", myNum);
+                Thread.sleep(100L); // doWork();
+            } catch (InterruptedException ignored) {
+            } finally {
+                doneSignal.countDown();
+                System.out.printf("Worker #%d finished\n", myNum);
+            }
+        }
     }
 
     public static void main(String[] args) throws InterruptedException {

@@ -38,6 +38,7 @@ public class QueryRunner {
                 result[1] = queryResult.getString("airports_in_city");
                 returnValue.add(result);
             }
+            queryResult.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -64,6 +65,7 @@ public class QueryRunner {
                 result[1] = queryResult.getString("cancelled_flights");
                 returnValue.add(result);
             }
+            queryResult.close();
         } catch (IOException | SQLException e) {
             e.printStackTrace();
         }
@@ -85,6 +87,7 @@ public class QueryRunner {
                 result[2] = queryResult.getString("duration");
                 returnValue.add(result);
             }
+            queryResult.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,6 +110,7 @@ public class QueryRunner {
                 result[1] = queryResult.getString("cancellations");
                 returnValue.add(result);
             }
+            queryResult.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -129,6 +133,7 @@ public class QueryRunner {
                 result[1] = queryResult.getString("flights");
                 returnValue.add(result);
             }
+            queryResult.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
