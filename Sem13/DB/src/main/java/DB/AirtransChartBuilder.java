@@ -67,7 +67,7 @@ public class AirtransChartBuilder {
     /**
      * Creates a chart, representing the number of cancelled flights as a function of month
      * @param filepath where to store the chart
-     * @throws IOException if a problem while saving chart to the filesystem occurred
+     * @throws IOException if a problem while saving the chart to the filesystem occurred
      */
     public void query4CreateBarChart(String filepath) throws IOException {
         List<String[]> data = queryRunner.getCancellationStatistics();
@@ -86,7 +86,7 @@ public class AirtransChartBuilder {
      * Creates two charts, representing the number of flights to (1st) and from (2nd) Moscow as a function of the weekday
      * @param filepath1 where to store the first chart
      * @param filepath2 where to store the second chart
-     * @throws IOException if a problem while saving chart to the filesystem occurred
+     * @throws IOException if a problem while saving the chart to the filesystem occurred
      */
     public void query5CreateBarCharts(String filepath1, String filepath2) throws IOException {
         for (int i = 0; i < 2; i++) {
@@ -109,7 +109,7 @@ public class AirtransChartBuilder {
      * @param filepath where to store the chart
      * @param from String with the date corresponds to the start of the period. Format "dd.mm.yyyy"
      * @param till String with the date corresponds to the end of the period. Format "dd.mm.yyyy"
-     * @throws IOException if a problem while saving chart to the filesystem occurred
+     * @throws IOException if a problem while saving the chart to the filesystem occurred
      */
     public void query6CreateBarCharts(String filepath, String from, String till) throws IOException {
         List<String[]> data = queryRunner.cancelFlights(from, till);
