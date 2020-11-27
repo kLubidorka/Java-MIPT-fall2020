@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import DB.QueryRunner;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 import static DB.AirtransDB.deleteFile;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
