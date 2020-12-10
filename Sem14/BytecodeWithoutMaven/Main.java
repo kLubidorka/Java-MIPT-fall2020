@@ -1,4 +1,4 @@
-public class Main {
+class Main {
     private String field;
 
     public String getField(){
