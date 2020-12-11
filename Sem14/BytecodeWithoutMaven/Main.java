@@ -1,7 +1,9 @@
 class Main {
-    private String field;
+    private static String field = "abc";
+    public String field2 = "abc";
 
-    public String getField(){
+
+    public static String getField(){
         return field;
     }
 
@@ -9,4 +11,3 @@ class Main {
         this.field = field;
     }
 }
-

@@ -12,6 +12,7 @@ public class ModifyLoadedClass {
         Field field = cls.getDeclaredField("field");
         field.setAccessible(true);
         field.setInt(testClass, 13);
+        field.set(testClass, 13);
     }
 }
 
